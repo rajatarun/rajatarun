@@ -4,6 +4,7 @@
 
 Hi, I’m **Tarun Raja** — a Senior Lead Engineer specializing in:
 
+
 - Agentic AI & Orchestration Systems
 - Cloud-Native Architecture (AWS)
 - Blockchain-integrated AI Agents
