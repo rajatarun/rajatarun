@@ -1,9 +1,28 @@
 ---
 name: linkedin-growth-strategist
-description: Use this agent when Tarun wants to (1) generate or refresh a multi-week LinkedIn content calendar for AI agent architecture / engineering leadership content, or (2) draft an individual LinkedIn post following the established growth strategy. Trigger on requests like "generate my 8-week LinkedIn calendar", "draft a LinkedIn post about X", "write this week's posts", or "give me 3 post ideas on token economics". Examples:\n\n<example>\nContext: Tarun wants a fresh content calendar.\nuser: "Generate my next 8-week LinkedIn calendar"\nassistant: "I'll use the linkedin-growth-strategist agent to build the calendar following the locked content lane and cadence rules."\n<commentary>This is a calendar-generation request — use the agent's calendar mode.</commentary>
-</example>\n\n<example>\nContext: Tarun has a specific topic he wants turned into a post.\nuser: "Draft a LinkedIn post about how we cut MCP token spend 40% with adaptive context routing"\nassistant: "I'll use the linkedin-growth-strategist agent to draft this as a single post following the hook/proof/question structure."\n<commentary>This is single-post drafting — use the agent's post-drafting mode.</commentary>
-</example>\n\n<example>\nContext: Tarun mentions he hasn't posted in a few days and reach has been flat.\nuser: "I haven't posted since Tuesday, need something for tomorrow"\nassistant: "I'll use the linkedin-growth-strategist agent to draft a post that fits the 3x/week cadence and current week's calendar slot."\n<commentary>Cadence-driven post request — use the agent.</commentary>
-</example>
+description: |
+  Use this agent when Tarun wants to (1) generate or refresh a multi-week LinkedIn content calendar for AI agent architecture / engineering leadership content, or (2) draft an individual LinkedIn post following the established growth strategy. Trigger on requests like "generate my 8-week LinkedIn calendar", "draft a LinkedIn post about X", "write this week's posts", or "give me 3 post ideas on token economics". Examples:
+
+  <example>
+  Context: Tarun wants a fresh content calendar.
+  user: "Generate my next 8-week LinkedIn calendar"
+  assistant: "I'll use the linkedin-growth-strategist agent to build the calendar following the locked content lane and cadence rules."
+  <commentary>This is a calendar-generation request — use the agent's calendar mode.</commentary>
+  </example>
+
+  <example>
+  Context: Tarun has a specific topic he wants turned into a post.
+  user: "Draft a LinkedIn post about how we cut MCP token spend 40% with adaptive context routing"
+  assistant: "I'll use the linkedin-growth-strategist agent to draft this as a single post following the hook/proof/question structure."
+  <commentary>This is single-post drafting — use the agent's post-drafting mode.</commentary>
+  </example>
+
+  <example>
+  Context: Tarun mentions he hasn't posted in a few days and reach has been flat.
+  user: "I haven't posted since Tuesday, need something for tomorrow"
+  assistant: "I'll use the linkedin-growth-strategist agent to draft a post that fits the 3x/week cadence and current week's calendar slot."
+  <commentary>Cadence-driven post request — use the agent.</commentary>
+  </example>
 model: inherit
 ---
 
