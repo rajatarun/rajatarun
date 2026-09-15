@@ -1,0 +1,751 @@
+<title>Cadence &amp; Case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#F1F3F6; --surface:#FFFFFF; --surface-2:#E7EBF1; --line:#D3DAE4;
+  --ink:#131722; --ink-2:#414B5E; --ink-3:#6C7789;
+  --reach:#00819E; --reach-bg:#E1F0F3;      /* content / audience */
+  --case:#6E55AD;  --case-bg:#ECE8F6;       /* petition evidence   */
+  --ok:#3E7D52; --ok-bg:#E5F0E8;
+  --thin:#96670F; --thin-bg:#F7EFDC;
+  --gap:#A8382F; --gap-bg:#F8E7E5;
+  --shadow:0 1px 2px rgba(19,23,34,.05), 0 10px 26px -18px rgba(19,23,34,.4);
+  --fd:"Newsreader",Georgia,serif;
+  --fb:"Public Sans",system-ui,-apple-system,sans-serif;
+  --fm:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#131722; --surface:#1B2030; --surface-2:#232A3C; --line:#333C52;
+  --ink:#E8ECF3; --ink-2:#AEB8CA; --ink-3:#7C879B;
+  --reach:#35A7C0; --reach-bg:#0E3038;
+  --case:#9E8BD6; --case-bg:#2A2247;
+  --ok:#6FB98A; --ok-bg:#16301F;
+  --thin:#D9A23B; --thin-bg:#382C10;
+  --gap:#E4736A; --gap-bg:#3A1C19;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 32px -20px rgba(0,0,0,.85);
+}}
+:root[data-theme="dark"]{
+  --ground:#131722; --surface:#1B2030; --surface-2:#232A3C; --line:#333C52;
+  --ink:#E8ECF3; --ink-2:#AEB8CA; --ink-3:#7C879B;
+  --reach:#35A7C0; --reach-bg:#0E3038;
+  --case:#9E8BD6; --case-bg:#2A2247;
+  --ok:#6FB98A; --ok-bg:#16301F;
+  --thin:#D9A23B; --thin-bg:#382C10;
+  --gap:#E4736A; --gap-bg:#3A1C19;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 32px -20px rgba(0,0,0,.85);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--fb);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:var(--fd);font-weight:600;text-wrap:balance;
+  letter-spacing:-.005em}
+:focus-visible{outline:2px solid var(--reach);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.eyebrow{font-family:var(--fb);font-size:10.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3)}
+.mono{font-family:var(--fm);font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:color-mix(in srgb,var(--ground) 90%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:wrap}
+.brand{margin-right:auto;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand h1{font-size:20px}
+.brand .who{font-size:12.5px;color:var(--ink-3)}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);
+  background:var(--surface);border-radius:999px;padding:4px 11px;font-size:12px;color:var(--ink-2)}
+.chip b{color:var(--ink);font-weight:600}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
+button.ghost{font:inherit;font-size:12px;color:var(--ink-2);background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:4px 11px;cursor:pointer}
+button.ghost:hover{color:var(--ink);border-color:var(--ink-3)}
+
+.layout{display:grid;grid-template-columns:230px 1fr;gap:26px;padding-block:22px 124px;
+  align-items:start}
+@media (max-width:880px){.layout{grid-template-columns:1fr;gap:14px}}
+nav.rail{position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);
+  display:flex;flex-direction:column;gap:2px}
+@media (max-width:880px){nav.rail{position:static;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:6px}}
+.rail>.eyebrow{padding:0 10px 7px}
+@media (max-width:880px){.rail>.eyebrow{display:none}}
+.problem{display:block;text-align:left;width:100%;padding:9px 11px;border-radius:8px;
+  border:1px solid transparent;background:none;cursor:pointer;font:inherit;color:var(--ink-2)}
+.problem:hover{background:var(--surface-2)}
+.problem[aria-current="true"]{background:var(--surface);border-color:var(--line);
+  box-shadow:var(--shadow);color:var(--ink)}
+.problem .t{font-weight:600;font-size:14px;display:block;line-height:1.3}
+.problem .d{font-size:11.5px;color:var(--ink-3);display:block;line-height:1.35}
+@media (max-width:880px){.problem{width:auto;white-space:nowrap}.problem .d{display:none}}
+
+.pane[hidden]{display:none!important}
+.pane>header{margin-bottom:17px}
+.pane h2{font-size:26px}
+.pane .lede{color:var(--ink-2);max-width:64ch;font-size:15px;margin-top:5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 17px}
+.grid{display:grid;gap:13px}
+.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.c2,.c3{grid-template-columns:1fr}}
+
+.tag{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 9px;
+  font-size:11px;font-weight:600;white-space:nowrap}
+.tag.reach{background:var(--reach-bg);color:var(--reach)}
+.tag.case{background:var(--case-bg);color:var(--case)}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.tag.thin{background:var(--thin-bg);color:var(--thin)}
+.tag.gap{background:var(--gap-bg);color:var(--gap)}
+.tag.mute{background:var(--surface-2);color:var(--ink-2)}
+
+/* week strip — the cadence is a real sequence, so it is drawn as one */
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+@media (max-width:700px){.week{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:440px){.week{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.day{border:1px solid var(--line);border-radius:8px;background:var(--surface);
+  padding:9px;min-height:104px;display:flex;flex-direction:column;gap:6px}
+.day.slot{border-style:dashed}
+.day .dn{font-family:var(--fm);font-size:10.5px;color:var(--ink-3)}
+.day .ti{font-size:12.5px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.day .none{font-size:11.5px;color:var(--ink-3);font-style:italic}
+
+/* criteria ledger */
+.led{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:26px 1fr auto auto;gap:11px;align-items:center;
+  padding:10px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+@media (max-width:640px){.row{grid-template-columns:26px 1fr auto;row-gap:5px}
+  .row .verdict{grid-column:2/-1;justify-self:start}}
+.row .k{font-family:var(--fm);font-size:11px;color:var(--ink-3)}
+.row .n{font-size:13.5px;line-height:1.35}
+.row .n small{display:block;color:var(--ink-3);font-size:11.5px}
+.ev{display:flex;gap:3px;align-items:center}
+.ev i{width:7px;height:16px;border-radius:2px;background:var(--case);display:block}
+.ev i.empty{background:var(--surface-2);border:1px solid var(--line)}
+
+.tile{display:flex;flex-direction:column;gap:2px}
+.tile .v{font-family:var(--fd);font-size:30px;font-weight:600;
+  font-variant-numeric:tabular-nums;line-height:1.05}
+.tile .k{font-size:11.5px;color:var(--ink-3)}
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center}
+@media (max-width:560px){.bar{grid-template-columns:1fr;gap:3px}}
+.bar .lab{font-size:12.5px;color:var(--ink-2)}
+.bar .track{height:9px;background:var(--surface-2);border-radius:5px;overflow:hidden}
+.bar .fill{height:100%;border-radius:5px}
+.bar .val{font-family:var(--fm);font-size:12px;font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2);margin-top:11px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:9px;height:9px;border-radius:2px}
+
+input[type=text],textarea,select{font:inherit;font-family:var(--fb);background:var(--surface);
+  color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 11px;min-width:0}
+textarea{resize:vertical;min-height:70px;width:100%}
+.askrow{display:flex;gap:9px;flex-wrap:wrap}
+.askrow input{flex:1 1 240px}
+.btn{font:inherit;font-weight:600;font-size:13px;border-radius:8px;padding:8px 15px;
+  cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2)}
+.btn:hover{color:var(--ink)}
+.btn.go{background:var(--reach);border-color:var(--reach);color:#fff}
+:root[data-theme="dark"] .btn.go{color:#07222A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.go{color:#07222A}}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.act{font:inherit;font-size:11.5px;font-weight:600;border:1px solid var(--line);
+  background:var(--surface-2);color:var(--ink-2);border-radius:6px;padding:3px 9px;cursor:pointer}
+.act:hover{border-color:var(--reach);color:var(--reach)}
+.act.primary{background:var(--reach);border-color:var(--reach);color:#fff}
+:root[data-theme="dark"] .act.primary{color:#07222A}
+.acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.note{font-size:12.5px;color:var(--ink-3);line-height:1.5}
+.note b{color:var(--ink-2)}
+.src{border-left:2px solid var(--line);padding-left:11px}
+.src .f{font-family:var(--fm);font-size:11.5px;color:var(--reach)}
+.src .x{font-size:13px;color:var(--ink-2);font-style:italic}
+table{width:100%;border-collapse:collapse;font-size:13px}
+.scroll{overflow-x:auto}
+th{text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);padding:0 10px 7px 0;white-space:nowrap}
+td{padding:8px 10px 8px 0;border-top:1px solid var(--line);vertical-align:top}
+td.num{font-family:var(--fm);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* gate */
+.gate{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--surface);
+  border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);
+  box-shadow:0 -10px 28px -22px rgba(0,0,0,.6)}
+.gate-in{display:grid;grid-template-columns:auto 1fr auto;gap:17px;align-items:center;padding-block:11px}
+@media (max-width:880px){.gate-in{grid-template-columns:1fr;gap:10px}}
+.gate.idle .staged{display:none}
+.gate:not(.idle) .resting{display:none}
+.resting{grid-column:1/-1;display:flex;gap:9px;align-items:center;font-size:12.5px;color:var(--ink-3)}
+.threads{display:flex;align-items:flex-end;gap:5px;height:40px}
+.thr{width:9px;border-radius:3px;background:var(--case)}
+.thr.undef{background:repeating-linear-gradient(180deg,var(--ink-3) 0 2px,transparent 2px 5px);opacity:.5}
+.gate-why .t{font-weight:700;font-size:14px}
+.gate-why .s{font-size:12.5px;color:var(--ink-2)}
+.sig{display:flex;gap:9px;flex-wrap:wrap;font-size:10.5px;color:var(--ink-3);
+  font-family:var(--fm);margin-top:4px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(env(safe-area-inset-bottom,0px) + 96px);z-index:60;background:var(--ink);
+  color:var(--ground);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:600;
+  box-shadow:var(--shadow)}
+.toast[hidden]{display:none}
+</style>
+
+<header class="top">
+  <div class="wrap topbar">
+    <div class="brand">
+      <h1>Cadence &amp; Case</h1>
+      <span class="who">Tarun Raja · admin</span>
+    </div>
+    <span class="chip" id="modechip"><span class="dot"></span><b id="modetext">Example data</b></span>
+    <button class="ghost" type="button" id="themebtn">Theme</button>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="rail" id="rail" aria-label="What do you need to do?">
+    <div class="eyebrow">What do you need to do?</div>
+  </nav>
+  <main id="main"></main>
+</div>
+
+<div class="gate idle" id="gate" role="region" aria-label="Execution gate">
+  <div class="wrap gate-in">
+    <div class="resting"><span class="dot"></span>
+      <span>Gate idle. Anything that publishes, or spends a model call, is proposed here first.</span></div>
+    <div class="staged threads" id="threads" aria-hidden="true"></div>
+    <div class="staged gate-why">
+      <div class="t" id="gtitle"></div><div class="s" id="gsub"></div><div class="sig" id="gsig"></div>
+    </div>
+    <div class="staged acts">
+      <span class="tag" id="gpill"></span>
+      <button class="btn" type="button" id="gcancel">Discard</button>
+      <button class="btn go" type="button" id="gcommit">Commit</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script>
+"use strict";
+/* ──────────────────────────────────────────────────────────────────────
+   Cadence & Case — the admin page for this repository.
+
+   This repo is not a platform repo. It holds LinkedIn articles, carousel
+   builders, a resume, and three agents: a LinkedIn growth strategist, an
+   Instagram strategist for @microlearn.withme, and an EB1A advisor. Read
+   them together and they state one thesis outright — the Instagram agent's
+   mandate is "(1) grow the account organically and (2) produce a dated,
+   public archive of original educational work that functions as EB1A
+   petition evidence."
+
+   So the publishing pipeline and the petition are the same pipeline seen
+   twice. This page operates both faces of it at once: every artifact
+   carries what it did for REACH and what it is worth as CASE evidence,
+   and the ledger totals the second while the calendar drives the first.
+
+   The gate is the weave platform's, unchanged: consequential actions are
+   proposed, scored against the six-signal risk vector, and committed
+   separately. It carries a rule that turns out to be the same rule the
+   petition runs on — an action cleared on fewer than three signals is
+   held for review however low it scores, because a low composite from one
+   signal is not the evidence a low composite from six is. A criterion
+   "met" on one thin document does not stand up to an adjudicator reading
+   the file cold either. Same standard, twice.
+
+   DATA. window.WEAVE_CONFIG present → live, fetched from the deployed
+   stacks. Absent → example data, labelled in the header and never passed
+   off as real figures.
+   ────────────────────────────────────────────────────────────────────── */
+
+const CFG = window.WEAVE_CONFIG || null;
+const LIVE = !!(CFG && CFG.services);
+
+/* The regulatory criteria, 8 CFR 204.5(h)(3). Three of ten are required,
+   and then the whole file has to survive a final-merits determination —
+   which is why "3 met" is a floor and not an answer. */
+const CRITERIA = [
+  {n:1, name:"Awards", full:"Lesser nationally or internationally recognised prizes for excellence"},
+  {n:2, name:"Membership", full:"Membership in associations requiring outstanding achievement"},
+  {n:3, name:"Published material about him", full:"In professional or major trade publications, or other major media"},
+  {n:4, name:"Judging others' work", full:"Participation as a judge of the work of others in the field"},
+  {n:5, name:"Original contributions", full:"Original contributions of major significance to the field"},
+  {n:6, name:"Authorship", full:"Authorship of scholarly articles in professional or major trade publications"},
+  {n:7, name:"Artistic display", full:"Display of work at artistic exhibitions or showcases"},
+  {n:8, name:"Critical role", full:"Leading or critical role for distinguished organisations"},
+  {n:9, name:"High remuneration", full:"High salary or remuneration relative to the field"},
+  {n:10,name:"Commercial success", full:"Commercial success in the performing arts"}
+];
+
+/* Example figures. Example — see the header chip. */
+const DEMO = {
+  dayZero:"2026-11-14",           // the 60-day window the EB1A agent works to
+  evidence:{ 4:2, 5:3, 6:4, 8:2, 9:1, 2:0, 1:0, 3:1, 7:0, 10:0 },
+  notes:{
+    4:"Two review invitations, both accepted; no completed review on file yet.",
+    5:"Three systems in production with documented adoption outside the team.",
+    6:"Four long-form technical articles; two carry citations from outside the org.",
+    8:"Senior lead on two named platforms; org-chart letter not yet requested.",
+    9:"One compensation letter; no field benchmark attached.",
+    3:"One mention; not independent coverage."
+  },
+  week:[
+    {d:"Mon", ch:"LinkedIn",  title:"Why a shared table is not a shared contract", state:"published", crit:6},
+    {d:"Tue", ch:"Instagram", title:"Context engineering in 60 seconds", state:"published", crit:3},
+    {d:"Wed", ch:"LinkedIn",  title:"Propose, then commit", state:"drafted", crit:6},
+    {d:"Thu", ch:null},
+    {d:"Fri", ch:"LinkedIn",  title:null, state:"slot", crit:6},
+    {d:"Sat", ch:"Instagram", title:null, state:"slot", crit:3},
+    {d:"Sun", ch:null}
+  ],
+  reach:[
+    {ch:"LinkedIn posts", n:3, imp:14820, c:"--reach"},
+    {ch:"Instagram reels", n:2, imp:5310, c:"--case"}
+  ],
+  spend:[
+    {op:"draft with strategist", usd:6.20, calls:41},
+    {op:"ask the corpus", usd:2.85, calls:96},
+    {op:"carousel render", usd:0.42, calls:6}
+  ],
+  decisions:{ALLOW:118, REVIEW:14, BLOCK:2},
+  answer:{
+    answer:"The corpus this console queries is the markdown in this repository. The deploy workflow syncs every .md file to the ContextWeave artifacts bucket on each push to main, so the articles, the resume and the LinkedIn drafts are all retrievable — and nothing else in the repo is, because the sync filters on *.md.",
+    sources:[
+      {file:".github/workflows/deploy.yaml", excerpt:"aws s3 sync . --include \"*.md\"", weight:1.0},
+      {file:"linkedin_article_context_engineering.md", excerpt:"context engineering as an architectural discipline", weight:0.6},
+      {file:"TARUN_RAJA_RESUME.md", excerpt:"self-reported, not independently verified", weight:0.3}
+    ],
+    confidence:.81, confidenceReported:true, questionType:"project", strategy:"keyword_boosted", propensity:.28
+  }
+};
+
+const AGENTS = {
+  "linkedin-growth-strategist":{
+    label:"LinkedIn strategist",
+    blurb:"3× a week, locked content lane, hook / proof / question.",
+    crit:6, channel:"LinkedIn"
+  },
+  "instagram-growth-strategist":{
+    label:"Instagram strategist",
+    blurb:"@microlearn.withme — micro-lessons that double as a dated public archive.",
+    crit:3, channel:"Instagram"
+  },
+  "eb1a-advisor":{
+    label:"EB1A advisor",
+    blurb:"Reads the file cold, like an adjudicator. Candid about gaps.",
+    crit:null, channel:null
+  }
+};
+
+/* ── the gate (the platform's, unchanged) ───────────────────────────── */
+const SIGNALS = ["grounding_risk","self_consistency_risk","numeric_instability_risk",
+                 "tool_mismatch_risk","drift_risk","verifier_risk"];
+const hash = s => {let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return (h>>>0)/4294967296};
+
+function score(kind, subject){
+  const defines = {
+    publish:["grounding_risk","self_consistency_risk","verifier_risk","drift_risk"],
+    draft:["grounding_risk","self_consistency_risk","numeric_instability_risk",
+           "tool_mismatch_risk","drift_risk","verifier_risk"],
+    evidence:["grounding_risk","verifier_risk"],
+    ask:["verifier_risk"]
+  }[kind] || ["verifier_risk"];
+  const v={}; const seed=kind+"|"+subject;
+  SIGNALS.forEach((s,i)=>{ v[s]=defines.includes(s)?+(hash(seed+s+i)*0.6).toFixed(3):null });
+  const on=SIGNALS.filter(s=>v[s]!==null);
+  const composite=+(on.reduce((a,s)=>a+v[s],0)/on.length).toFixed(3);
+  const level=composite>=.55?"high":composite>=.25?"medium":"low";
+  const thin=on.length<3 && kind!=="ask";
+  const decision = level==="high" ? "BLOCK" : (level==="medium"||thin) ? "REVIEW" : "ALLOW";
+  return {v, on:on.length, composite, level, decision, thin};
+}
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num=n=>n.toLocaleString();
+const usd=n=>"$"+n.toFixed(2);
+const pct=n=>Math.round(n*100)+"%";
+const daysLeft=()=>Math.max(0,Math.ceil((new Date(DEMO.dayZero)-new Date())/864e5));
+</script>
+<script>
+"use strict";
+const PROBLEMS=[
+  {id:"week",  t:"Hit this week's cadence", d:"Three LinkedIn, two Instagram — what's missing"},
+  {id:"draft", t:"Draft with a strategist", d:"Give a topic, get a post through the gate"},
+  {id:"case",  t:"Build the EB1A case",     d:"Criteria ledger and where it is thin"},
+  {id:"ask",   t:"Ask my own corpus",       d:"Query the markdown this repo syncs"},
+  {id:"cost",  t:"See what it cost",        d:"Model spend and what the gate refused"}
+];
+let current="week", staged=null;
+const state={week:DEMO.week.map(d=>({...d})), evidence:{...DEMO.evidence},
+             draft:null, answer:null};
+
+/* ── gate strip ─────────────────────────────────────────────────────── */
+const gate=document.getElementById("gate");
+function stage(p){
+  staged=p; const s=p.score;
+  gate.classList.remove("idle");
+  document.getElementById("threads").innerHTML=SIGNALS.map(n=>{
+    const v=s.v[n];
+    if(v===null) return `<div class="thr undef" style="height:40px" title="${n}: not measured for this action"></div>`;
+    return `<div class="thr" style="height:${Math.max(7,Math.round(v/0.6*40))}px;opacity:${(0.45+v).toFixed(2)}" title="${n}: ${v}"></div>`;
+  }).join("");
+  document.getElementById("gtitle").textContent=p.title;
+  document.getElementById("gsub").innerHTML=
+    `Composite <b class="mono">${s.composite.toFixed(3)}</b> · ${s.level} · `+
+    `<b class="mono">${s.on} of 6</b> signals informed it`+
+    (s.thin?` — <b>held: cleared on too little</b>`:"");
+  document.getElementById("gsig").innerHTML=SIGNALS.map(n=>
+    `${n.replace(/_risk$/,"")} ${s.v[n]===null?"—":s.v[n].toFixed(2)}`).join(" · ");
+  const pill=document.getElementById("gpill");
+  pill.className="tag "+(s.decision==="ALLOW"?"ok":s.decision==="BLOCK"?"gap":"thin");
+  pill.textContent=s.decision;
+  const go=document.getElementById("gcommit");
+  go.disabled = s.decision==="BLOCK";
+  go.textContent = s.decision==="REVIEW" ? "Override & commit" : "Commit";
+}
+const unstage=()=>{staged=null;gate.classList.add("idle")};
+document.getElementById("gcancel").onclick=()=>{unstage();toast("Discarded — nothing ran")};
+document.getElementById("gcommit").onclick=()=>{const p=staged;if(!p)return;unstage();p.commit()};
+let tT; function toast(m){const e=document.getElementById("toast");e.textContent=m;e.hidden=false;
+  clearTimeout(tT);tT=setTimeout(()=>e.hidden=true,2600)}
+
+const main=document.getElementById("main"), rail=document.getElementById("rail");
+rail.insertAdjacentHTML("beforeend",PROBLEMS.map(p=>
+  `<button class="problem" type="button" data-p="${p.id}" aria-current="${p.id===current}">
+     <span class="t">${esc(p.t)}</span><span class="d">${esc(p.d)}</span></button>`).join(""));
+rail.addEventListener("click",e=>{const b=e.target.closest(".problem");if(!b)return;
+  current=b.dataset.p;
+  rail.querySelectorAll(".problem").forEach(x=>x.setAttribute("aria-current",String(x.dataset.p===current)));
+  render()});
+function render(){
+  main.innerHTML=({week:weekPane,draft:draftPane,case:casePane,ask:askPane,cost:costPane})[current]();
+  wire();
+}
+
+/* 01 — cadence ─────────────────────────────────────────────────────── */
+function weekPane(){
+  const done=state.week.filter(d=>d.state==="published").length;
+  const slots=state.week.filter(d=>d.state==="slot").length;
+  const drafted=state.week.filter(d=>d.state==="drafted").length;
+  return `<section class="pane"><header>
+    <h2>Hit this week's cadence</h2>
+    <p class="lede">Three LinkedIn and two Instagram a week is the locked cadence. Each slot
+    also carries the criterion it feeds, because a week that ships on time and files nothing
+    is only half the job.</p></header>
+    <div class="grid c3" style="margin-bottom:15px">
+      <div class="card"><div class="tile"><span class="v">${done}<span style="color:var(--ink-3);font-size:18px">/5</span></span><span class="k">shipped this week</span></div></div>
+      <div class="card"><div class="tile"><span class="v">${drafted}</span><span class="k">drafted, not published</span></div></div>
+      <div class="card"><div class="tile"><span class="v">${slots}</span><span class="k">slots still empty</span></div></div>
+    </div>
+    <div class="week">${state.week.map(d=>{
+      if(!d.ch) return `<div class="day" style="background:var(--surface-2);border-style:none">
+        <span class="dn">${d.d}</span><span class="none">rest</span></div>`;
+      const tagged = d.crit ? `<span class="tag case">criterion ${d.crit}</span>` : "";
+      if(d.state==="slot") return `<div class="day slot"><span class="dn">${d.d} · ${d.ch}</span>
+        <span class="none">empty slot</span>${tagged}
+        <div class="acts" style="margin-top:auto"><button class="act" data-fill="${d.d}">Draft it</button></div></div>`;
+      return `<div class="day"><span class="dn">${d.d} · ${d.ch}</span>
+        <span class="ti">${esc(d.title)}</span>${tagged}
+        <div class="acts" style="margin-top:auto">
+          ${d.state==="published"
+            ? `<span class="tag ok">published</span>`
+            : `<button class="act primary" data-pub="${d.d}">Publish</button>`}
+        </div></div>`;
+    }).join("")}</div>
+    <p class="note" style="margin-top:14px">Publishing is the consequential step, so it is
+    proposed at the gate rather than run on click. Drafting spends a model call, so it is too.</p>
+  </section>`;
+}
+
+/* 02 — draft ───────────────────────────────────────────────────────── */
+function draftPane(){
+  const d=state.draft;
+  return `<section class="pane"><header>
+    <h2>Draft with a strategist</h2>
+    <p class="lede">Three agents live in <span class="mono">.claude/agents/</span>. Two write;
+    one reads the file cold and tells you what is missing. Pick one, give it the topic, and the
+    call goes through the gate before it spends anything.</p></header>
+    <div class="card">
+      <form id="dform">
+        <div class="askrow" style="margin-bottom:10px">
+          <select id="agent" aria-label="Which strategist">
+            ${Object.entries(AGENTS).map(([k,a])=>`<option value="${k}">${a.label}</option>`).join("")}
+          </select>
+        </div>
+        <p class="note" id="blurb" style="margin:0 0 10px">${AGENTS["linkedin-growth-strategist"].blurb}</p>
+        <textarea id="topic" aria-label="Topic"
+          placeholder="How a stale EngineVersion pin cost us a deploy and a rollback">${d?esc(d.topic):""}</textarea>
+        <div class="acts" style="margin-top:10px"><button class="btn go" type="submit" id="dbtn">Draft it</button></div>
+      </form>
+      ${d?draftCard(d):`<p class="note" style="margin-top:12px">
+        Nothing drafted yet. The draft is text until you publish it — that is a separate,
+        gated step on the cadence board.</p>`}
+    </div></section>`;
+}
+function draftCard(d){
+  return `<div style="margin-top:15px;display:flex;flex-direction:column;gap:12px">
+    <div class="acts">
+      <span class="tag reach">${esc(d.channel||"no channel")}</span>
+      ${d.crit?`<span class="tag case">feeds criterion ${d.crit}</span>`:`<span class="tag mute">advisory — files nothing</span>`}
+    </div>
+    <div style="white-space:pre-wrap;font-size:15px;line-height:1.6">${esc(d.text)}</div>
+    ${d.crit?`<div class="acts"><button class="act primary" id="queue">Queue for the next slot</button></div>`:""}
+  </div>`;
+}
+
+/* 03 — the case ────────────────────────────────────────────────────── */
+function casePane(){
+  const met=CRITERIA.filter(c=>(state.evidence[c.n]||0)>=2).length;
+  const thin=CRITERIA.filter(c=>(state.evidence[c.n]||0)===1).length;
+  const total=Object.values(state.evidence).reduce((a,b)=>a+b,0);
+  return `<section class="pane"><header>
+    <h2>Build the EB1A case</h2>
+    <p class="lede">Three of ten criteria is the floor, not the answer — the file then has to
+    survive a final-merits determination as a whole. The ledger below counts documented
+    evidence, not intentions.</p></header>
+    <div class="grid c3" style="margin-bottom:15px">
+      <div class="card"><div class="tile"><span class="v">${met}</span><span class="k">criteria documented — three is the floor</span></div></div>
+      <div class="card"><div class="tile"><span class="v">${thin}</span><span class="k">resting on a single document</span></div></div>
+      <div class="card"><div class="tile"><span class="v">${daysLeft()}</span><span class="k">days to the 60-day target</span></div></div>
+    </div>
+    ${thin?`<div class="card" style="border-color:var(--thin);margin-bottom:14px">
+      <span class="tag thin">thin</span>
+      <p style="margin:9px 0 0;font-size:14.5px">${thin} criteri${thin===1?"on rests":"a rest"} on one
+      document. That is the same failure the gate refuses downstairs: a clear on one signal is
+      not the evidence a clear on six is, and an adjudicator reading the file cold applies
+      exactly that standard.</p></div>`:""}
+    <div class="card"><div class="led">${CRITERIA.map(c=>{
+      const n=state.evidence[c.n]||0;
+      const verdict = n>=2?["ok","documented"]:n===1?["thin","thin"]:["gap","nothing filed"];
+      return `<div class="row">
+        <span class="k">${String(c.n).padStart(2,"0")}</span>
+        <span class="n">${esc(c.name)}<small>${esc(c.full)}</small>
+          ${DEMO.notes[c.n]?`<small style="color:var(--ink-2);margin-top:3px">${esc(DEMO.notes[c.n])}</small>`:""}</span>
+        <span class="ev" title="${n} documented item${n===1?"":"s"}">
+          ${[0,1,2,3].map(i=>`<i class="${i<n?"":"empty"}"></i>`).join("")}${n>4?`<span class="k">+${n-4}</span>`:""}</span>
+        <span class="verdict"><span class="tag ${verdict[0]}">${verdict[1]}</span></span>
+      </div>`}).join("")}</div>
+      <p class="note" style="margin-top:13px">Total documented items: <b class="mono">${total}</b>.
+      Criteria 7 and 10 are artistic and performing-arts tests — they are listed because the
+      regulation lists them, not because they are routes here.</p>
+    </div></section>`;
+}
+
+/* 04 — ask ─────────────────────────────────────────────────────────── */
+function askPane(){
+  const a=state.answer;
+  return `<section class="pane"><header>
+    <h2>Ask my own corpus</h2>
+    <p class="lede">The deploy workflow syncs every <span class="mono">.md</span> in this repo
+    to the knowledge layer on each push to main — and only the markdown, because the sync
+    filters on it. So this answers from the articles, the resume and the drafts, and from
+    nothing else here.</p></header>
+    <div class="card">
+      <form class="askrow" id="aform">
+        <input type="text" id="q" aria-label="Question" placeholder="What of mine is actually in the corpus?" value="${a?esc(a.q):""}">
+        <button class="btn go" type="submit" id="abtn">Ask</button>
+      </form>
+      ${a?ansCard(a):`<p class="note" style="margin-top:12px">Weights differ by source: an
+      article carries more than the resume, which is self-reported and not independently
+      verified.</p>`}
+    </div></section>`;
+}
+function ansCard(a){
+  return `<div style="margin-top:15px;display:flex;flex-direction:column;gap:13px">
+    <p style="margin:0;font-size:15.5px;line-height:1.6">${esc(a.answer)}</p>
+    <div class="grid c3">
+      <div class="tile"><span class="v">${pct(a.confidence)}</span><span class="k">confidence</span></div>
+      <div class="tile"><span class="v">${a.confidenceReported?"reported":"fallback"}</span><span class="k">by the model</span></div>
+      <div class="tile"><span class="v">${esc(a.strategy.replace(/_/g," "))}</span><span class="k">retrieval strategy</span></div>
+    </div>
+    ${!a.confidenceReported?`<p class="note"><b>No confidence was reported.</b> The number is a
+      constant the code chose, so the router is not updated from it.</p>`:""}
+    <div><div class="eyebrow" style="margin-bottom:7px">Sources</div>
+      <div style="display:flex;flex-direction:column;gap:9px">${a.sources.map(s=>
+        `<div class="src"><span class="f">${esc(s.file)} · weight ${s.weight}</span>
+         <span class="x">“${esc(s.excerpt)}”</span></div>`).join("")}</div></div>
+  </div>`;
+}
+
+/* 05 — cost ────────────────────────────────────────────────────────── */
+function costPane(){
+  const tot=DEMO.spend.reduce((a,s)=>a+s.usd,0);
+  const max=Math.max(...DEMO.spend.map(s=>s.usd));
+  const d=DEMO.decisions, dt=d.ALLOW+d.REVIEW+d.BLOCK;
+  const imp=DEMO.reach.reduce((a,r)=>a+r.imp,0);
+  return `<section class="pane"><header>
+    <h2>See what it cost</h2>
+    <p class="lede">What the week spent on model calls, what it reached, and what the gate
+    declined to wave through.</p></header>
+    <div class="grid c3" style="margin-bottom:15px">
+      <div class="card"><div class="tile"><span class="v">${usd(tot)}</span><span class="k">model spend, this week</span></div></div>
+      <div class="card"><div class="tile"><span class="v">${num(imp)}</span><span class="k">impressions across channels</span></div></div>
+      <div class="card"><div class="tile"><span class="v">${usd(tot/(imp/1000))}</span><span class="k">per thousand reached</span></div></div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="eyebrow" style="margin-bottom:11px">Reach by channel</div>
+      <div class="bars">${DEMO.reach.map(r=>`<div class="bar">
+        <span class="lab">${esc(r.ch)}</span>
+        <span class="track"><span class="fill" style="width:${(r.imp/imp*100).toFixed(1)}%;background:var(${r.c})"></span></span>
+        <span class="val">${num(r.imp)}</span></div>`).join("")}</div>
+      <div class="legend">${DEMO.reach.map(r=>
+        `<span><i class="sw" style="background:var(${r.c})"></i>${esc(r.ch)} · ${r.n} this week</span>`).join("")}</div>
+    </div>
+    <div class="grid c2">
+      <div class="card">
+        <div class="eyebrow" style="margin-bottom:11px">Where the money went</div>
+        <div class="bars">${DEMO.spend.map(s=>`<div class="bar" style="grid-template-columns:150px 1fr auto">
+          <span class="lab">${esc(s.op)}</span>
+          <span class="track"><span class="fill" style="width:${(s.usd/max*100).toFixed(1)}%;background:var(--reach)"></span></span>
+          <span class="val">${usd(s.usd)}</span></div>`).join("")}</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow" style="margin-bottom:11px">What the gate did</div>
+        <div class="bars">${[["ALLOW",d.ALLOW,"ok"],["REVIEW",d.REVIEW,"thin"],["BLOCK",d.BLOCK,"gap"]].map(([k,v,c])=>
+          `<div class="bar" style="grid-template-columns:96px 1fr auto">
+            <span class="lab"><span class="tag ${c}">${k}</span></span>
+            <span class="track"><span class="fill" style="width:${(v/dt*100).toFixed(1)}%;background:var(--${c})"></span></span>
+            <span class="val">${num(v)}</span></div>`).join("")}</div>
+        <p class="note" style="margin-top:11px">REVIEW is the gate declining to decide alone,
+        not a failure. Those ${d.REVIEW} waited for you.</p>
+      </div>
+    </div></section>`;
+}
+</script>
+<script>
+"use strict";
+let sampler=null, tried=false;
+async function getSampler(){
+  if(tried) return sampler;
+  tried=true;
+  try{ sampler=(await window.claude?.use?.("sample"))||null }catch{ sampler=null }
+  return sampler;
+}
+
+function wire(){
+  // cadence
+  main.querySelectorAll("[data-pub]").forEach(b=>b.onclick=()=>{
+    const day=state.week.find(x=>x.d===b.dataset.pub);
+    stage({title:`publish to ${day.ch} — “${day.title}”`, score:score("publish",day.title),
+      commit(){ day.state="published";
+        toast(`Published. Filed against criterion ${day.crit}.`);
+        state.evidence[day.crit]=(state.evidence[day.crit]||0)+1; render(); }});
+  });
+  main.querySelectorAll("[data-fill]").forEach(b=>b.onclick=()=>{
+    current="draft"; 
+    rail.querySelectorAll(".problem").forEach(x=>x.setAttribute("aria-current",String(x.dataset.p==="draft")));
+    render();
+  });
+
+  // draft
+  const sel=main.querySelector("#agent");
+  if(sel) sel.onchange=()=>{ main.querySelector("#blurb").textContent=AGENTS[sel.value].blurb };
+  const df=main.querySelector("#dform");
+  if(df) df.onsubmit=e=>{
+    e.preventDefault();
+    const topic=main.querySelector("#topic").value.trim();
+    const key=main.querySelector("#agent").value;
+    if(!topic) return;
+    stage({title:`${AGENTS[key].label} — draft on “${topic.slice(0,48)}${topic.length>48?"…":""}”`,
+      score:score("draft",topic),
+      async commit(){
+        const btn=main.querySelector("#dbtn");
+        if(btn){btn.disabled=true;btn.textContent="Drafting…"}
+        state.draft=await draftWith(key,topic);
+        render();
+      }});
+  };
+  const q=main.querySelector("#queue");
+  if(q) q.onclick=()=>{
+    const slot=state.week.find(d=>d.state==="slot");
+    if(!slot){ toast("No empty slot left this week"); return; }
+    slot.title=state.draft.text.split("\n")[0].slice(0,60);
+    slot.state="drafted";
+    toast(`Queued for ${slot.d}`);
+    current="week";
+    rail.querySelectorAll(".problem").forEach(x=>x.setAttribute("aria-current",String(x.dataset.p==="week")));
+    render();
+  };
+
+  // ask
+  const af=main.querySelector("#aform");
+  if(af) af.onsubmit=async e=>{
+    e.preventDefault();
+    const text=main.querySelector("#q").value.trim(); if(!text) return;
+    const btn=main.querySelector("#abtn"); btn.disabled=true; btn.textContent="Asking…";
+    state.answer=await ask(text); render();
+  };
+}
+
+async function draftWith(key,topic){
+  const a=AGENTS[key];
+  const s=await getSampler();
+  if(!s) return {topic, channel:a.channel, crit:a.crit,
+    text:"No drafting model is available in this view, so nothing was generated.\n\nThe agent's own definition lives in .claude/agents/"+key+".md — run it from Claude Code and paste the result here, or deploy this page where it can reach the orchestrator."};
+  const briefs={
+    "linkedin-growth-strategist":`Write one LinkedIn post, 120-190 words. Structure: a hook line that states a
+      specific consequence, then concrete proof with a real number or mechanism, then one
+      question to the reader. No hashtags, no emoji, no "thoughts?" filler. Voice: a senior
+      engineer who has actually shipped this, writing plainly.`,
+    "instagram-growth-strategist":`Write a 45-60 second Instagram Reel script for @microlearn.withme teaching this to a
+      curious professional. Give: HOOK (one line, 3 seconds), then 4 beats each with the
+      spoken line and what is on screen, then a closing line. Plain language, no jargon left
+      undefined.`,
+    "eb1a-advisor":`You are reading this file cold, as a USCIS adjudicator would. In 120-160 words, say what
+      this accomplishment is actually worth as EB1A evidence, which of the ten regulatory
+      criteria it plausibly serves, and what documentation is missing to make it stand up.
+      Be candid about weakness; do not flatter.`
+  };
+  try{
+    const out=await s(`${briefs[key]}\n\nTopic: ${topic}`, {modelTier:"default"});
+    return {topic, channel:a.channel, crit:a.crit, text:out.text.trim()};
+  }catch{
+    return {topic, channel:a.channel, crit:a.crit,
+      text:"The drafting call failed. That is infrastructure, not the topic — retrying is reasonable."};
+  }
+}
+
+async function ask(q){
+  if(LIVE && CFG.services.contextweave?.api_base){
+    try{
+      const r=await fetch(CFG.services.contextweave.api_base+"/query-expertise",{
+        method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q})});
+      if(r.ok){ const d=await r.json(); return {...d,q}; }
+    }catch{}
+  }
+  const s=await getSampler();
+  if(!s) return {...DEMO.answer,q};
+  try{
+    const out=await s.json(
+      `You stand in for a retrieval layer over one person's markdown corpus: technical
+       articles on AI agent architecture, a resume, LinkedIn drafts, and a repo README.
+       Answer in 2-4 sentences. Be honest if the corpus plausibly would not contain it.
+       Question: ${q}
+       Return JSON: {"answer":string,"sources":[{"file":string,"excerpt":string,"weight":number}],
+       "confidence":number,"strategy":"graph_first"|"hybrid"|"keyword_boosted"|"semantic_search"}`,
+      {modelTier:"default"});
+    return {answer:out.answer, sources:out.sources||[], confidence:out.confidence??.7,
+            confidenceReported:true, strategy:out.strategy||"semantic_search", q};
+  }catch{ return {...DEMO.answer,q}; }
+}
+
+(function boot(){
+  const txt=document.getElementById("modetext"), chip=document.getElementById("modechip");
+  if(LIVE){ txt.textContent="Live";
+    chip.querySelector(".dot").style.background="var(--ok)";
+    chip.title="Reading the deployed stacks named in window.WEAVE_CONFIG"; }
+  else { chip.title="Figures below are examples, not real. Set window.WEAVE_CONFIG from "+
+    "`python e2e/platform_env.py` in mcp-observatory to read the live stacks."; }
+  const btn=document.getElementById("themebtn");
+  let f=null; try{ f=localStorage.getItem("cc-theme") }catch{}
+  if(f) document.documentElement.setAttribute("data-theme",f);
+  btn.onclick=()=>{
+    const now=document.documentElement.getAttribute("data-theme");
+    const next=now==="dark"?"light":now==="light"?null:"dark";
+    if(next) document.documentElement.setAttribute("data-theme",next);
+    else document.documentElement.removeAttribute("data-theme");
+    try{ next?localStorage.setItem("cc-theme",next):localStorage.removeItem("cc-theme") }catch{}
+  };
+  render();
+})();
+</script>
